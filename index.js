@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const admin = require('firebase-admin');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config()
 
 
@@ -87,7 +88,7 @@ client.connect(err => {
         }
     })
     app.delete('/delete/:id', (req, res) => {
-        registrationsCollection.deleteOne({_id:req.params.id})
+        registrationsCollection.deleteOne({_id: ObjectId(req.params.id)})
         .then( result => {
             res.send(result.deletedCount > 0);         
         })
